@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Children's Education Journey</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary: #2D6A4F;
+            --primary-light: #40916C;
+            --accent: #E76F51;
+            --accent-light: #F4A261;
+            --warm: #FEFAE0;
+            --dark: #1B2A1B;
+            --card-bg: #ffffff;
+            --danger: #D62828;
+            --success: #2D6A4F;
+            --blue: #264653;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--warm);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #264653 0%, #2A9D8F 50%, #40916C 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 50%;
+        }
+
+        .hero-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            max-width: 600px;
+        }
+
+        .hero p {
+            color: rgba(255,255,255,0.85);
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 600;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .hero .subtitle-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 24px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+            font-weight: 600;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-hint span {
+            display: block;
+            font-size: 24px;
+            margin-top: 4px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Story Cards */
+        .story-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .story-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .story-card h3 {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .story-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #444;
+            font-weight: 600;
+        }
+
+        /* Children Cards */
+        .children-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 600px) {
+            .children-grid { grid-template-columns: 1fr; }
+        }
+
+        .child-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s ease;
+        }
+
+        .child-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .child-card .child-emoji {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        .child-card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .child-card .age {
+            color: #888;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .child-card .fee-total {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary);
+            margin: 12px 0 4px;
+        }
+
+        .child-card .fee-label {
+            font-size: 13px;
+            color: #888;
+            font-weight: 700;
+        }
+
+        .child-card .timeline {
+            display: inline-block;
+            background: #E8F5E9;
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-top: 16px;
+        }
+
+        /* Big Number */
+        .big-number-section {
+            background: linear-gradient(135deg, #264653 0%, #2A9D8F 100%);
+            border-radius: 24px;
+            padding: 48px 32px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .big-number-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .big-number-section::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .big-number-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .big-number {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            font-size: clamp(48px, 10vw, 72px);
+            font-weight: 800;
+            margin: 12px 0;
+        }
+
+        .big-number-sub {
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Year-wise bars */
+        .year-bar-container {
+            margin: 24px 0;
+        }
+
+        .year-bar-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+        }
+
+        .year-bar-row.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .year-label {
+            width: 80px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #666;
+            text-align: right;
+            padding-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .year-bar-track {
+            flex: 1;
+            height: 28px;
+            background: #f0f0f0;
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .year-bar-fill {
+            height: 100%;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            color: white;
+            width: 0;
+            transition: width 1.2s ease;
+        }
+
+        .year-bar-fill.shaina {
+            background: linear-gradient(90deg, #2A9D8F, #40916C);
+        }
+
+        .year-bar-fill.shayan {
+            background: linear-gradient(90deg, #E76F51, #F4A261);
+        }
+
+        .year-bar-fill.combined {
+            background: linear-gradient(90deg, #264653, #2A9D8F);
+        }
+
+        .bar-legend {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 20px;
+        }
+
+        .bar-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #666;
+        }
+
+        .bar-legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        /* Comparison Section */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        @media (max-width: 600px) {
+            .comparison { grid-template-columns: 1fr; }
+        }
+
+        .compare-card {
+            border-radius: 20px;
+            padding: 28px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .compare-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .compare-card.danger {
+            background: #FFF5F5;
+            border: 2px solid #FFCDD2;
+        }
+
+        .compare-card.success {
+            background: #F0FFF4;
+            border: 2px solid #C8E6C9;
+        }
+
+        .compare-card .compare-icon {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        .compare-card h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .compare-card .salary {
+            font-size: 28px;
+            font-weight: 900;
+            margin: 8px 0;
+        }
+
+        .compare-card.danger .salary { color: var(--danger); }
+        .compare-card.success .salary { color: var(--success); }
+
+        .compare-card .detail {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        /* Meter / Gauge */
+        .gauge-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 24px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .gauge-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gauge-section h3 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .gauge-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .gauge-label {
+            width: 140px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 700;
+            color: #666;
+            flex-shrink: 0;
+        }
+
+        .gauge-track {
+            flex: 1;
+            height: 24px;
+            background: #f0f0f0;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gauge-fill {
+            height: 100%;
+            border-radius: 12px;
+            transition: width 1.5s ease;
+            width: 0;
+        }
+
+        .gauge-fill.red { background: linear-gradient(90deg, #D62828, #E76F51); }
+        .gauge-fill.green { background: linear-gradient(90deg, #2D6A4F, #52B788); }
+
+        .gauge-pct {
+            width: 50px;
+            font-size: 14px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .gauge-pct.red { color: var(--danger); }
+        .gauge-pct.green { color: var(--success); }
+
+        /* Action Items */
+        .action-section {
+            background: linear-gradient(135deg, #E76F51, #F4A261);
+            border-radius: 24px;
+            padding: 40px 32px;
+            margin: 40px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .action-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .action-section h2 {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .action-item {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .action-item.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .action-number {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #E76F51, #F4A261);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 900;
+            flex-shrink: 0;
+        }
+
+        .action-content h4 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .action-content p {
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        /* Promise Section */
+        .promise-section {
+            text-align: center;
+            padding: 60px 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .promise-section .promise-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .promise-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 4vw, 32px);
+            color: var(--dark);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .promise-section p {
+            font-size: 18px;
+            color: #555;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+        /* Timeline visual */
+        .timeline-visual {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #2A9D8F, #E76F51);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 12px;
+            top: 4px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 3px solid;
+            background: white;
+        }
+
+        .timeline-dot.teal { border-color: #2A9D8F; }
+        .timeline-dot.orange { border-color: #E76F51; }
+        .timeline-dot.blue { border-color: #264653; }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 16px 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            flex: 1;
+        }
+
+        .timeline-year {
+            font-size: 12px;
+            font-weight: 800;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .timeline-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-top: 2px;
+        }
+
+        .timeline-amount {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-top: 4px;
+        }
+
+        /* Divider */
+        .divider {
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #2A9D8F, #40916C);
+            border-radius: 2px;
+            margin: 0 auto 40px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            background: #264653;
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .footer .name {
+            color: white;
+            font-weight: 800;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        /* Highlight */
+        .highlight {
+            background: linear-gradient(to right, #E8F5E9, transparent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .highlight-danger {
+            background: linear-gradient(to right, #FFEBEE, transparent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            color: var(--danger);
+        }
+
+        /* Overlap visual */
+        .overlap-banner {
+            background: #FFF3E0;
+            border: 2px solid #FFE0B2;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin: 24px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .overlap-banner.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .overlap-banner .overlap-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .overlap-banner h4 {
+            font-size: 18px;
+            font-weight: 800;
+            color: #E65100;
+            margin-bottom: 4px;
+        }
+
+        .overlap-banner p {
+            font-size: 14px;
+            color: #BF360C;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="hero-icon">&#x1F393;</div>
+        <h1>Our Children's Education Journey</h1>
+        <p>A family plan for Shaina and Shayan's schooling, from today to the day they graduate.</p>
+        <div class="subtitle-badge">15 years, 2 kids, 1 plan</div>
+        <div class="scroll-hint">
+            Scroll to see the full picture
+            <span>&#x2193;</span>
+        </div>
+    </div>
+
+    <!-- Chapter 1: Our Kids -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-icon">&#x1F476;</span>
+            <h2>Meet Our Two Stars</h2>
+            <p>Their school journey stretches from now to 2041</p>
+        </div>
+
+        <div class="children-grid">
+            <div class="child-card" data-animate>
+                <div class="child-emoji">&#x1F467;</div>
+                <h3>Shaina</h3>
+                <div class="age">Born July 2019 (Age 6)</div>
+                <div style="font-size:14px; color:#666; font-weight:600;">
+                    Entering Grade 2 at<br>Vels Vidyashram, Thalambur
+                </div>
+                <div class="fee-total">&#x20B9;21.4L</div>
+                <div class="fee-label">Total education cost</div>
+                <div class="timeline">Grade 2 (2026) &#x2192; Grade 12 (2037)</div>
+            </div>
+            <div class="child-card" data-animate>
+                <div class="child-emoji">&#x1F466;</div>
+                <h3>Shayan</h3>
+                <div class="age">Born October 2022 (Age 3)</div>
+                <div style="font-size:14px; color:#666; font-weight:600;">
+                    Starting LKG next year<br>at the same school
+                </div>
+                <div class="fee-total">&#x20B9;27.5L</div>
+                <div class="fee-label">Total education cost</div>
+                <div class="timeline">LKG (2027) &#x2192; Grade 12 (2041)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 2: The Total Cost -->
+    <div class="section" style="padding-top:0;">
+        <div class="big-number-section" data-animate>
+            <div class="big-number-label">Total Education Investment</div>
+            <div class="big-number">&#x20B9;49 Lakhs</div>
+            <div class="big-number-sub">For both children, from today until they finish 12th standard</div>
+        </div>
+
+        <div class="story-card" data-animate>
+            <h3>&#x1F4D6; How did we calculate this?</h3>
+            <p>
+                Shaina's current school fee is <strong>&#x20B9;97,500 per year</strong> (tuition + transport).
+                School fees typically increase by <strong>8% every year</strong>. When children move from
+                primary to middle school, secondary, and higher secondary, fees jump an extra 15% at each level change.
+            </p>
+            <br>
+            <p>
+                This is not guesswork. This is how school fees actually grow in private schools across Chennai.
+                If anything, this is a <strong>conservative estimate</strong>.
+            </p>
+        </div>
+    </div>
+
+    <!-- Chapter 3: Year by Year -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-icon">&#x1F4C5;</span>
+            <h2>Year by Year</h2>
+            <p>How the fees grow over 15 years</p>
+        </div>
+
+        <div class="story-card" data-animate>
+            <div class="bar-legend">
+                <div class="bar-legend-item">
+                    <div class="bar-legend-dot" style="background: #2A9D8F;"></div>
+                    Shaina
+                </div>
+                <div class="bar-legend-item">
+                    <div class="bar-legend-dot" style="background: #E76F51;"></div>
+                    Shayan
+                </div>
+            </div>
+            <div class="year-bar-container" id="yearBars">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+
+        <!-- Year-wise table -->
+        <div class="story-card" data-animate>
+            <h3>&#x1F4CA; Year-by-Year Fee Breakdown</h3>
+            <div style="overflow-x: auto;">
+                <table style="width:100%; border-collapse:collapse; margin-top:16px; font-size:13px;">
+                    <thead>
+                        <tr style="background: var(--primary); color: white;">
+                            <th style="padding:10px 12px; text-align:left; border-radius:8px 0 0 0;">Year</th>
+                            <th style="padding:10px 12px; text-align:center;">Shaina<br><span style="font-size:10px; opacity:0.8;">Grade</span></th>
+                            <th style="padding:10px 12px; text-align:right;">Shaina Fee</th>
+                            <th style="padding:10px 12px; text-align:center;">Shayan<br><span style="font-size:10px; opacity:0.8;">Grade</span></th>
+                            <th style="padding:10px 12px; text-align:right;">Shayan Fee</th>
+                            <th style="padding:10px 12px; text-align:right; border-radius:0 8px 0 0;">Combined</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background:#f8faf8;">
+                            <td style="padding:8px 12px; font-weight:700;">2026-27</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 2</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.10L</td>
+                            <td style="padding:8px 12px; text-align:center; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:right; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;1.10L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700;">2027-28</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 3</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.17L</td>
+                            <td style="padding:8px 12px; text-align:center;">LKG</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;0.93L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;2.10L</td>
+                        </tr>
+                        <tr style="background:#f8faf8;">
+                            <td style="padding:8px 12px; font-weight:700;">2028-29</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 4</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.26L</td>
+                            <td style="padding:8px 12px; text-align:center;">UKG</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;0.99L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;2.25L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700;">2029-30</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 5</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.35L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 1</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;1.16L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;2.51L</td>
+                        </tr>
+                        <tr style="background:#f8faf8;">
+                            <td style="padding:8px 12px; font-weight:700;">2030-31</td>
+                            <td style="padding:8px 12px; text-align:center; color:#264653; font-weight:700;">Grade 6 *</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.65L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 2</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;1.24L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;2.89L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700;">2031-32</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 7</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.77L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 3</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;1.33L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;3.10L</td>
+                        </tr>
+                        <tr style="background:#f8faf8;">
+                            <td style="padding:8px 12px; font-weight:700;">2032-33</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 8</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;1.90L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 4</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;1.43L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;3.33L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700;">2033-34</td>
+                            <td style="padding:8px 12px; text-align:center; color:#264653; font-weight:700;">Grade 9 *</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;2.33L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 5</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;1.53L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;3.86L</td>
+                        </tr>
+                        <tr style="background:#f8faf8;">
+                            <td style="padding:8px 12px; font-weight:700;">2034-35</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 10</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;2.51L</td>
+                            <td style="padding:8px 12px; text-align:center; color:#264653; font-weight:700;">Grade 6 *</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;1.88L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;4.39L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700;">2035-36</td>
+                            <td style="padding:8px 12px; text-align:center; color:#264653; font-weight:700;">Grade 11 *</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;3.08L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 7</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;2.02L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800; color:var(--danger);">&#x20B9;5.10L</td>
+                        </tr>
+                        <tr style="background:#fff5f5;">
+                            <td style="padding:8px 12px; font-weight:700;">2036-37</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 12</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#2A9D8F;">&#x20B9;3.32L</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 8</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;2.17L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800; color:var(--danger);">&#x20B9;5.49L</td>
+                        </tr>
+                        <tr style="background:#f0f0f0;">
+                            <td style="padding:8px 12px; font-weight:700;">2037-38</td>
+                            <td style="padding:8px 12px; text-align:center; color:#999;">Done</td>
+                            <td style="padding:8px 12px; text-align:right; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:center; color:#264653; font-weight:700;">Grade 9 *</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;2.66L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;2.66L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700;">2038-39</td>
+                            <td style="padding:8px 12px; text-align:center; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:right; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 10</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;2.86L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;2.86L</td>
+                        </tr>
+                        <tr style="background:#f8faf8;">
+                            <td style="padding:8px 12px; font-weight:700;">2039-40</td>
+                            <td style="padding:8px 12px; text-align:center; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:right; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:center; color:#264653; font-weight:700;">Grade 11 *</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;3.53L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800;">&#x20B9;3.53L</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:8px 12px; font-weight:700; border-radius:0 0 0 8px;">2040-41</td>
+                            <td style="padding:8px 12px; text-align:center; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:right; color:#999;">-</td>
+                            <td style="padding:8px 12px; text-align:center;">Grade 12</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:600; color:#E76F51;">&#x20B9;3.80L</td>
+                            <td style="padding:8px 12px; text-align:right; font-weight:800; border-radius:0 0 8px 0;">&#x20B9;3.80L</td>
+                        </tr>
+                        <tr style="background:var(--primary); color:white;">
+                            <td colspan="2" style="padding:10px 12px; font-weight:800; border-radius:0 0 0 8px;">TOTAL (15 years)</td>
+                            <td style="padding:10px 12px; text-align:right; font-weight:800;">&#x20B9;21.4L</td>
+                            <td style="padding:10px 12px;"></td>
+                            <td style="padding:10px 12px; text-align:right; font-weight:800;">&#x20B9;27.5L</td>
+                            <td style="padding:10px 12px; text-align:right; font-weight:900; font-size:15px; border-radius:0 0 8px 0;">&#x20B9;48.9L</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="font-size:12px; color:#999; margin-top:12px; font-weight:600;">* Grade transitions with fee jumps (primary > middle > secondary > higher secondary)</p>
+        </div>
+
+        <div class="overlap-banner" data-animate>
+            <div class="overlap-icon">&#x26A0;&#xFE0F;</div>
+            <h4>10 Years of Overlap</h4>
+            <p>From 2027 to 2037, both children will be in school at the same time.<br>
+            The combined fee peaks at <strong>&#x20B9;5.5 lakhs/year</strong> in 2036-37.</p>
+        </div>
+    </div>
+
+    <!-- Chapter 4: The Two Paths -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-icon">&#x1F6E4;&#xFE0F;</span>
+            <h2>Two Paths, Two Futures</h2>
+            <p>Same family, very different outcomes</p>
+        </div>
+
+        <div class="comparison">
+            <div class="compare-card danger" data-animate>
+                <div class="compare-icon">&#x1F614;</div>
+                <h3>My salary alone</h3>
+                <div class="salary">&#x20B9;70-78K/month</div>
+                <div class="detail">
+                    Take-home: &#x20B9;70,000-78,000/month<br>
+                    Fixed expenses: &#x20B9;69,860/month<br>
+                    Left for everything else: <strong>&#x20B9;8,910/month</strong><br><br>
+                    School fees grow to &#x20B9;5.5L/year but there's no room to save. We'll need to <strong>borrow money to pay school fees</strong>.
+                </div>
+            </div>
+            <div class="compare-card success" data-animate>
+                <div class="compare-icon">&#x1F60A;</div>
+                <h3>Both salaries together</h3>
+                <div class="salary">&#x20B9;1.13L/month</div>
+                <div class="detail">
+                    My salary: &#x20B9;70-78K + Your salary: &#x20B9;35K<br>
+                    Fixed expenses: &#x20B9;69,860/month<br>
+                    Left for everything else: <strong>&#x20B9;43,910/month</strong><br><br>
+                    Groceries under &#x20B9;20K. Remaining &#x20B9;23K+ saved for school fees every month. <strong>We can pay comfortably and still save.</strong>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gauge comparison -->
+        <div class="gauge-section" data-animate>
+            <h3>How much of our salary goes to school fees?</h3>
+            <p style="font-size:13px; color:#999; font-weight:600; margin-bottom:20px;">In the heaviest year (2036-37, both kids in school)</p>
+
+            <div class="gauge-row">
+                <div class="gauge-label">My salary alone</div>
+                <div class="gauge-track">
+                    <div class="gauge-fill red" data-width="58"></div>
+                </div>
+                <div class="gauge-pct red">58%</div>
+            </div>
+            <div class="gauge-row">
+                <div class="gauge-label">Both salaries</div>
+                <div class="gauge-track">
+                    <div class="gauge-fill green" data-width="40"></div>
+                </div>
+                <div class="gauge-pct green">40%</div>
+            </div>
+
+            <p style="margin-top:20px; font-size:14px; color:#666; font-weight:600;">
+                With just my salary, <span class="highlight-danger">58 paise of every free rupee</span> goes to school fees alone. Nothing left to save.<br>
+                Together, it's <span class="highlight">40 paise</span>, and the rest stays with us for savings and emergencies.
+            </p>
+        </div>
+    </div>
+
+    <!-- Chapter 5: The Real Danger -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-icon">&#x1F6A8;</span>
+            <h2>The Real Danger</h2>
+            <p>What happens if we don't act</p>
+        </div>
+
+        <div class="story-card" data-animate style="border-left: 4px solid #D62828;">
+            <h3>&#x1F534; With just my salary, the math doesn't work</h3>
+            <p>
+                Today, my monthly expenses are &#x20B9;69,860. My salary is &#x20B9;70,000-78,000. That leaves barely &#x20B9;8,900 per month for
+                groceries, emergencies, and everything else. Nothing left to save for school fees.
+            </p>
+            <br>
+            <p>
+                Now add school fees that grow from &#x20B9;9,000/month to &#x20B9;46,000/month over the next 15 years.
+                <strong>By 2030, we'll be spending more than I earn.</strong> The only option would be to take loans to pay school fees,
+                which means more EMIs, more stress, and a debt cycle that's hard to escape.
+            </p>
+        </div>
+
+        <div class="story-card" data-animate style="border-left: 4px solid #2D6A4F;">
+            <h3>&#x1F7E2; Together (my salary + your &#x20B9;35K), we breathe easy</h3>
+            <p>
+                With both our salaries, the monthly pool is &#x20B9;1.13 lakh. After fixed expenses, we have &#x20B9;43,910 left.
+                I'll manage groceries (under &#x20B9;20K), and the remaining &#x20B9;23,000+ goes straight into a school fund for Shaina and Shayan every month.
+            </p>
+            <br>
+            <p>
+                <strong>In just 2 months of saving together, we'd have enough for a full school term.</strong> No loans needed. No stress. Just comfortable, planned spending. And as my income grows through a better job and freelancing, things only get easier.
+            </p>
+        </div>
+    </div>
+
+    <!-- Chapter 6: The Timeline -->
+    <div class="section">
+        <div class="section-header">
+            <span class="section-icon">&#x23F3;</span>
+            <h2>15 Years at a Glance</h2>
+            <p>Key milestones in our children's education journey</p>
+        </div>
+
+        <div class="timeline-visual">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot teal"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">April 2026</div>
+                    <div class="timeline-text">Shaina starts Grade 2</div>
+                    <div class="timeline-amount">&#x20B9;1.10L/year</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot orange"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">June 2027</div>
+                    <div class="timeline-text">Shayan starts LKG. Both kids in school now.</div>
+                    <div class="timeline-amount">Combined: &#x20B9;2.10L/year</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot blue"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2030-31</div>
+                    <div class="timeline-text">Shaina enters middle school (Grade 6). Fees jump.</div>
+                    <div class="timeline-amount">Combined: &#x20B9;2.89L/year</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot blue"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2033-34</div>
+                    <div class="timeline-text">Shaina enters secondary (Grade 9). Big fee increase.</div>
+                    <div class="timeline-amount">Combined: &#x20B9;3.86L/year</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot blue"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2035-37</div>
+                    <div class="timeline-text" style="color: var(--danger);">Peak years. Both kids in higher classes. Maximum pressure.</div>
+                    <div class="timeline-amount">Combined: &#x20B9;5.1 - 5.5L/year</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot teal"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2036-37</div>
+                    <div class="timeline-text">Shaina completes 12th. One down!</div>
+                    <div class="timeline-amount">Shayan continues until 2041</div>
+                </div>
+            </div>
+
+            <div class="timeline-item" data-animate>
+                <div class="timeline-dot orange"></div>
+                <div class="timeline-content">
+                    <div class="timeline-year">2040-41</div>
+                    <div class="timeline-text">Shayan completes 12th. Journey complete!</div>
+                    <div class="timeline-amount">&#x20B9;49 lakhs invested in our children</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chapter 7: Action Plan -->
+    <div class="section">
+        <div class="action-section" data-animate>
+            <h2>&#x1F3AF; What We Need to Do</h2>
+
+            <div class="action-item" data-animate>
+                <div class="action-number">1</div>
+                <div class="action-content">
+                    <h4>Pool both our salaries like before</h4>
+                    <p>With both salaries (&#x20B9;78K + &#x20B9;35K = &#x20B9;1.13L), I can manage all expenses, groceries (under &#x20B9;20K), and save &#x20B9;23K+ every month for Shaina and Shayan's school fees.</p>
+                </div>
+            </div>
+
+            <div class="action-item" data-animate>
+                <div class="action-number">2</div>
+                <div class="action-content">
+                    <h4>Build a school fund every month</h4>
+                    <p>With the surplus, I'll set aside money consistently. In 2-3 months of saving, we'll have a full term's fees ready before it's due. No more last-minute stress.</p>
+                </div>
+            </div>
+
+            <div class="action-item" data-animate>
+                <div class="action-number">3</div>
+                <div class="action-content">
+                    <h4>Clear credit card debt</h4>
+                    <p>We're paying &#x20B9;59,000+ in CC debt. At 3.5% monthly interest, that's money going to the bank instead of our children. Clear it, then redirect that money to savings.</p>
+                </div>
+            </div>
+
+            <div class="action-item" data-animate>
+                <div class="action-number">4</div>
+                <div class="action-content">
+                    <h4>Planning a better job + freelancing</h4>
+                    <p>I'm looking for a better-paying role and building freelance income on the side. Either one improving will add more breathing room. Both together would change our situation significantly.</p>
+                </div>
+            </div>
+
+            <div class="action-item" data-animate>
+                <div class="action-number">5</div>
+                <div class="action-content">
+                    <h4>Cut unnecessary costs</h4>
+                    <p>Already cancelled ChatGPT and Cosmofeed (&#x20B9;2,650/month saved). Continuing to review what else can be reduced without hurting earning ability.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promise Section -->
+    <div class="promise-section">
+        <div class="promise-icon">&#x1F3E0;</div>
+        <h2>This is not about fear. This is about being prepared.</h2>
+        <div class="divider" style="margin-top: 20px;"></div>
+        <p>
+            Shaina and Shayan deserve the best education we can give them.
+            The numbers are real, but so is our ability to plan ahead.
+            If we make the right moves now, especially the job switch,
+            their entire schooling is covered without stress, without debt, and without compromise.
+        </p>
+        <br>
+        <p style="font-size:20px; font-weight:800; color: var(--primary);">
+            We've got 15 years. Let's make the first move count.
+        </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        For our family. With love.
+    </div>
+
+    <script>
+        // Year data for bar chart
+        const yearData = [
+            { year: '2026-27', shaina: 1.10, shayan: 0 },
+            { year: '2027-28', shaina: 1.17, shayan: 0.93 },
+            { year: '2028-29', shaina: 1.26, shayan: 0.99 },
+            { year: '2029-30', shaina: 1.35, shayan: 1.16 },
+            { year: '2030-31', shaina: 1.65, shayan: 1.24 },
+            { year: '2031-32', shaina: 1.77, shayan: 1.33 },
+            { year: '2032-33', shaina: 1.90, shayan: 1.43 },
+            { year: '2033-34', shaina: 2.33, shayan: 1.53 },
+            { year: '2034-35', shaina: 2.51, shayan: 1.88 },
+            { year: '2035-36', shaina: 3.08, shayan: 2.02 },
+            { year: '2036-37', shaina: 3.32, shayan: 2.17 },
+            { year: '2037-38', shaina: 0, shayan: 2.66 },
+            { year: '2038-39', shaina: 0, shayan: 2.86 },
+            { year: '2039-40', shaina: 0, shayan: 3.53 },
+            { year: '2040-41', shaina: 0, shayan: 3.80 },
+        ];
+
+        const maxCombined = 5.49;
+        const barContainer = document.getElementById('yearBars');
+
+        yearData.forEach((d, i) => {
+            const combined = d.shaina + d.shayan;
+            const row = document.createElement('div');
+            row.className = 'year-bar-row';
+            row.style.transitionDelay = `${i * 0.08}s`;
+
+            const shainaWidth = (d.shaina / maxCombined) * 100;
+            const shayanWidth = (d.shayan / maxCombined) * 100;
+
+            row.innerHTML = `
+                <div class="year-label">${d.year}</div>
+                <div class="year-bar-track">
+                    <div style="display:flex; height:100%;">
+                        ${d.shaina > 0 ? `<div class="year-bar-fill shaina" data-width="${shainaWidth}" style="border-radius: ${d.shayan > 0 ? '14px 0 0 14px' : '14px'};">
+                            <span style="font-size:10px;">${d.shaina.toFixed(1)}L</span>
+                        </div>` : ''}
+                        ${d.shayan > 0 ? `<div class="year-bar-fill shayan" data-width="${shayanWidth}" style="border-radius: ${d.shaina > 0 ? '0 14px 14px 0' : '14px'};">
+                            <span style="font-size:10px;">${d.shayan.toFixed(1)}L</span>
+                        </div>` : ''}
+                    </div>
+                </div>
+            `;
+            barContainer.appendChild(row);
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+
+                    // Animate bars
+                    const bars = entry.target.querySelectorAll('.year-bar-fill');
+                    bars.forEach(bar => {
+                        const width = bar.getAttribute('data-width');
+                        if (width) {
+                            setTimeout(() => {
+                                bar.style.width = width + '%';
+                            }, 300);
+                        }
+                    });
+
+                    // Animate gauges
+                    const gauges = entry.target.querySelectorAll('.gauge-fill');
+                    gauges.forEach(gauge => {
+                        const width = gauge.getAttribute('data-width');
+                        if (width) {
+                            setTimeout(() => {
+                                gauge.style.width = width + '%';
+                            }, 300);
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Observe all animated elements
+        document.querySelectorAll('[data-animate], .story-card, .child-card, .big-number-section, .compare-card, .gauge-section, .action-section, .action-item, .timeline-item, .year-bar-row, .overlap-banner').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

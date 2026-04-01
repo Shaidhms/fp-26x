@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Family Finance Plan - April 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #f8f9fa;
+    color: #1a1a2e;
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  .header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    padding: 48px 40px 40px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .header p {
+    font-size: 15px;
+    opacity: 0.75;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  /* Section styles */
+  .section {
+    background: white;
+    border-radius: 16px;
+    padding: 32px;
+    margin-top: -20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    position: relative;
+  }
+  .section:first-of-type {
+    margin-top: -30px;
+    z-index: 2;
+  }
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #8b949e;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .section h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 16px;
+  }
+  .section p {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 12px;
+  }
+
+  /* Highlight box */
+  .highlight {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    padding: 16px 20px;
+    border-radius: 0 12px 12px 0;
+    margin: 16px 0;
+    font-size: 15px;
+  }
+  .highlight.red {
+    background: #fef2f2;
+    border-left-color: #ef4444;
+  }
+  .highlight.green {
+    background: #f0fdf4;
+    border-left-color: #22c55e;
+  }
+  .highlight.blue {
+    background: #eff6ff;
+    border-left-color: #3b82f6;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    background: #f1f5f9;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #64748b;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+  }
+  tr:last-child td { border-bottom: none; }
+  .amount { font-family: 'SF Mono', 'Consolas', monospace; font-weight: 600; }
+  .red { color: #ef4444; }
+  .green { color: #16a34a; }
+  .bold-row td { font-weight: 700; background: #f8fafc; }
+
+  /* Gap visual */
+  .gap-visual {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0;
+    padding: 20px;
+    background: #fef2f2;
+    border-radius: 12px;
+  }
+  .gap-bar {
+    flex: 1;
+    height: 32px;
+    background: #fee2e2;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .gap-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #22c55e, #86efac);
+    border-radius: 8px;
+  }
+  .gap-label {
+    font-size: 13px;
+    color: #666;
+    min-width: 120px;
+  }
+  .gap-label strong { color: #1a1a2e; }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin: 20px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: #e2e8f0;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 4px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #3b82f6;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px #3b82f6;
+  }
+  .timeline-item.done::before { background: #22c55e; box-shadow: 0 0 0 2px #22c55e; }
+  .timeline-item.pending::before { background: #f59e0b; box-shadow: 0 0 0 2px #f59e0b; }
+  .timeline-date {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3b82f6;
+    text-transform: uppercase;
+  }
+  .timeline-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 2px 0;
+  }
+  .timeline-desc {
+    font-size: 13px;
+    color: #64748b;
+  }
+
+  /* Conversation section */
+  .conversation {
+    background: #fafbfc;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .conversation p {
+    font-size: 15px;
+    color: #334155;
+    margin-bottom: 12px;
+    line-height: 1.8;
+  }
+  .conversation p:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 0 16px;
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  @media (max-width: 600px) {
+    .header { padding: 32px 20px; }
+    .section { padding: 24px 20px; }
+    .header h1 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Dear Sana, I want to be honest with you</h1>
+  <p>About something I couldn't say in person</p>
+</div>
+
+<div class="container">
+
+<!-- OPENING -->
+<div class="section">
+  <div class="conversation" style="background: #fefce8; border: 1px solid #fde68a;">
+    <p style="color: #92400e;">I'm writing this down because I don't know how to say it face to face. I've tried, but the words don't come out right. So I'm putting it all here, honestly, with the real numbers. Please read this, and if it makes sense to you, come and talk to me. We can figure this out together.</p>
+  </div>
+
+</div>
+
+<!-- SECTION 1: WHERE WE ARE -->
+<div class="section">
+  <div class="section-label">Part 1</div>
+  <h2>Where we stand right now</h2>
+
+  <p>This is our family's money situation as of April 2026. No sugarcoating, just the real numbers.</p>
+
+  <table>
+    <tr><th colspan="2">Monthly Income (currently)</th></tr>
+    <tr><td>My salary (TCS) - April<br><span style="font-size:12px; color:#64748b; font-weight:400;">March month it was Rs. 70,486. This month it came as Rs. 78,770.</span></td><td class="amount green">Rs. 78,770</td></tr>
+    <tr><td>Your contribution (groceries, managed by you)</td><td class="amount" style="color:#64748b">Handled separately</td></tr>
+    <tr class="bold-row"><td>Cash I have to work with for everything else</td><td class="amount">Rs. 78,770</td></tr>
+  </table>
+
+  <div class="highlight" style="background:#fff7ed; border-left-color:#f97316;">
+    <strong>But my salary is not the same every month.</strong> Next month it could drop to Rs. 55,000-60,000 because of quarterly deductions: health insurance (covers all 5 of us - you, me, Ammi, Shaina, Shayan), PF, and professional tax. These deductions hit every quarter and bring the salary down significantly. This variation makes it really hard to plan, because I never know if I'll get Rs. 78K or Rs. 55K in a given month. That's the reality I'm dealing with.
+  </div>
+
+  <table>
+    <tr><th>Fixed Monthly Expense (excluding groceries)</th><th>Amount</th></tr>
+    <tr><td>Rent (Naz didi)</td><td class="amount">Rs. 17,500</td></tr>
+    <tr><td>Car EMI</td><td class="amount">Rs. 15,964</td></tr>
+    <tr><td>Subscriptions (work tools)</td><td class="amount">Rs. 14,029</td></tr>
+    <tr><td>WiFi + Mobile bills (3 of us)</td><td class="amount">Rs. 2,998</td></tr>
+    <tr><td>Electricity</td><td class="amount">Rs. 4,553</td></tr>
+    <tr><td>Gas + Water</td><td class="amount">Rs. 1,281</td></tr>
+    <tr><td>Fuel (petrol)</td><td class="amount">Rs. 4,500</td></tr>
+    <tr><td>Loan EMIs (Tata, DSP)</td><td class="amount">Rs. 535</td></tr>
+    <tr><td>Car wash</td><td class="amount">Rs. 1,000</td></tr>
+    <tr><td>Fluffy (grooming + food)</td><td class="amount">Rs. 2,500</td></tr>
+    <tr><td>Nazim Bhaijan (AI course)</td><td class="amount">Rs. 5,000</td></tr>
+    <tr class="bold-row"><td>Total fixed monthly expenses</td><td class="amount red">Rs. 69,860</td></tr>
+  </table>
+
+  <div class="gap-visual">
+    <div class="gap-label"><strong>My salary</strong><br>Rs. 78,770</div>
+    <div class="gap-bar">
+      <div class="gap-fill" style="width: 89%"></div>
+    </div>
+    <div class="gap-label"><strong>Left over</strong><br><span class="red">Rs. 8,910</span></div>
+  </div>
+
+  <div class="highlight red">
+    <strong>Rs. 8,910 is all that's left</strong> after paying the fixed bills. One school fee, one medical bill, one credit card payment, and we're in the red. There's no cushion for anything that comes up beyond the basics.
+  </div>
+
+  <p>You've been managing groceries, and I appreciate that. The problem isn't groceries. It's everything else that comes on top: school fees, credit card bills, vehicle repairs, medical expenses, one-off payments. These "extras" aren't really extra. They show up every month, and with just my salary covering all of them, there's nothing left to absorb them. And nothing left to save for Shaina and Shayan's future fees.</p>
+
+  <div class="highlight blue">
+    <strong>When you used to give me your salary (Rs. 35,000),</strong> I was able to handle all of this and I was also setting aside money every month for Shaina's school fees. I had a system. The total pool was Rs. 1.13L, and that gave enough room to manage the bills, cover the extras, and still save a little for her education every month. When that stopped, I couldn't save anymore. The same expenses kept coming, but there was nothing left to put aside. That's how we ended up here, where Shaina's fees are due and I don't have it ready.
+  </div>
+</div>
+
+<!-- SECTION 2: APRIL CRISIS -->
+<div class="section">
+  <div class="section-label">Part 2</div>
+  <h2>What April needs from us</h2>
+
+  <p>April is one of the heaviest months of the year. Shaina's new academic session starts on April 6, and several big bills are due at the same time.</p>
+
+  <table>
+    <tr><th>Due Date</th><th>What</th><th>Amount</th></tr>
+    <tr><td>Apr 1-30</td><td><strong>Shaina's Term I fees + uniform</strong></td><td class="amount red">Rs. 34,300</td></tr>
+    <tr><td>~Apr 5</td><td>Credit card bill (CC **2274)</td><td class="amount red">Rs. 59,473</td></tr>
+
+    <tr><td>Apr 12</td><td>Car EMI (auto-debit)</td><td class="amount">Rs. 15,964</td></tr>
+    <tr><td>Apr 21</td><td>Credit card bill (CC **8691)</td><td class="amount">Rs. 4,825</td></tr>
+    <tr><td>Throughout</td><td>Rent + food + utilities</td><td class="amount">Rs. 35,832</td></tr>
+    <tr class="bold-row"><td></td><td>Total April needs</td><td class="amount red">Rs. ~1,45,392</td></tr>
+  </table>
+
+  <div class="gap-visual">
+    <div class="gap-label"><strong>April salary</strong><br>Rs. 78,770</div>
+    <div class="gap-bar">
+      <div class="gap-fill" style="width: 54%"></div>
+    </div>
+    <div class="gap-label"><strong>Shortfall</strong><br><span class="red">Rs. ~66,622</span></div>
+  </div>
+
+  <div class="highlight red">
+    <strong>April alone needs Rs. 1.45 lakh. My salary is Rs. 78,770.</strong> That's a gap of nearly Rs. 67,000. Shaina's school starts April 6, and the fees can't wait.
+  </div>
+
+  <p>The credit card outstanding (Rs. 59,473) built up from work-related subscriptions (Claude AI, hosting) that I use for freelance projects. I've already cancelled ChatGPT and Cosmofeed to bring the monthly cost down.</p>
+</div>
+
+<!-- SECTION 3: WHAT I'M DOING ABOUT IT -->
+<div class="section">
+  <div class="section-label">Part 3</div>
+  <h2>What I'm actively doing to fix this</h2>
+
+  <p>I'm not sitting still. I'm working on two things in parallel to improve our situation:</p>
+
+  <div class="timeline">
+    <div class="timeline-item done">
+      <div class="timeline-date">Done</div>
+      <div class="timeline-title">Cut unnecessary subscriptions</div>
+      <div class="timeline-desc">Cancelled ChatGPT Plus (Rs. 2,151/mo) and Cosmofeed (Rs. 499/mo). That's Rs. 2,650/month saved going forward.</div>
+    </div>
+    <div class="timeline-item pending">
+      <div class="timeline-date">Planning</div>
+      <div class="timeline-title">Looking for a better-paying job</div>
+      <div class="timeline-desc">I'm planning to switch to a role in the 24-30 LPA range. With 15+ years of experience and my Gen AI skills, this is realistic. I'm preparing my resume, applying, and doing interview prep in my free time. If it works out, our take-home could jump to ~Rs. 1.5L/month. Honestly, I'm also not happy at my current job. No promotion, no role change. I've been wanting to move into an AI Engineer role for a while, but they won't give me that opportunity. I've been battling that frustration too, on top of everything else.</div>
+    </div>
+    <div class="timeline-item pending">
+      <div class="timeline-date">Ongoing</div>
+      <div class="timeline-title">Building freelance income on the side</div>
+      <div class="timeline-desc">I have 2 paid client projects I'm delivering right now. Freelancing is something I'm actively growing alongside the job. The goal is to bring in extra income every month through web development and AI consulting work, even while employed.</div>
+    </div>
+    <div class="timeline-item pending">
+      <div class="timeline-date">Ongoing</div>
+      <div class="timeline-title">Reducing monthly costs where possible</div>
+      <div class="timeline-desc">Looking at what else can be trimmed without hurting our earning ability.</div>
+    </div>
+  </div>
+
+  <div class="highlight green">
+    <strong>Both paths can help us.</strong> A better job would significantly increase our monthly income. Freelancing adds on top of that. I'm working on both, and either one improving will make a real difference.
+  </div>
+</div>
+
+<!-- SECTION 4: WHERE WE CAN BE -->
+<div class="section">
+  <div class="section-label">Part 4</div>
+  <h2>What changes when we work together</h2>
+
+  <table>
+    <tr><th></th><th>My salary alone</th><th>Both salaries together</th></tr>
+    <tr><td>Monthly pool</td><td class="amount">Rs. 78,770</td><td class="amount green">Rs. ~1,13,770</td></tr>
+    <tr><td>After fixed expenses</td><td class="amount red">Rs. 8,910</td><td class="amount green">Rs. ~43,910</td></tr>
+    <tr><td>School fees (Rs. 34,300)</td><td class="red">Can't cover it</td><td class="green">Covered comfortably</td></tr>
+    <tr><td>Unexpected expenses</td><td class="red">No room at all</td><td class="green">Buffer available</td></tr>
+    <tr><td>CC debt paydown</td><td class="red">Keeps growing</td><td class="green">Can start clearing it</td></tr>
+  </table>
+
+  <p>Your Rs. 35,000 doesn't just "add" to the pool. It's the difference between drowning and breathing. It gives me the room to cover the things that come up beyond the fixed bills, the way I used to when we managed it together.</p>
+
+  <div class="highlight green">
+    <strong>Here's what I'll do with it:</strong> I'll take over groceries completely. Groceries will stay under Rs. 20,000/month max. The remaining Rs. 21,000+ from the surplus, I'll save every month for Shaina's school fees and Shayan's upcoming school fees. No more last-minute scrambling. A proper fund, built month by month, the way I used to do it.
+  </div>
+
+  <div class="highlight blue">
+    <strong>On top of this,</strong> the job switch and freelancing are both in progress. As either one picks up, our situation gets better. But right now, today, pooling our income is what keeps us stable.
+  </div>
+</div>
+
+<!-- SECTION 5: THE ASK -->
+<div class="section">
+  <div class="section-label">Part 5</div>
+  <h2>What would help us right now</h2>
+
+  <div class="conversation">
+    <p>When you used to give me your salary, I was able to manage everything. The bills, the fees, the random things that come up. You still handled groceries, and that didn't change. But the Rs. 35,000 gave me room to absorb everything else without falling behind.</p>
+    <p>Without it, the same expenses are still coming, but I'm constantly short. That's how the credit card debt built up, that's why school fees feel like a crisis, and that's why every month feels like I'm just barely keeping up.</p>
+  </div>
+
+  <table>
+    <tr><th>Priority</th><th>What your salary helps cover</th></tr>
+    <tr><td>1</td><td><strong>Shaina's school fees</strong> - Term I Rs. 34,300 (due this month, school starts Apr 6)</td></tr>
+    <tr><td>2</td><td><strong>Credit card payments</strong> - Stop the interest from piling up</td></tr>
+    <tr><td>3</td><td><strong>Monthly extras</strong> - Medical, vehicle, kids' needs, anything that comes up</td></tr>
+    <tr><td>4</td><td><strong>A small cushion</strong> - So we're not scrambling every single month</td></tr>
+  </table>
+
+  <div class="highlight blue">
+    <strong>You managed groceries. I managed everything else. That worked.</strong> I'm asking if we can go back to what worked, while I continue pushing for a better job and building freelance income on the side.
+  </div>
+
+  <div class="conversation">
+    <p>I'm not saying this will be like this forever. I'm planning to switch to a higher-paying role, and I'm also building freelance projects on the side. Both of those will improve things. But right now, today, I need us to manage this together the way we used to.</p>
+    <p>I want us to build a proper financial plan together. I've already mapped out Shaina and Shayan's school fees for the next 15 years. <a href="education-plan-family.html" style="color: #3b82f6; font-weight: 600;">Click here to see the full education plan</a>. If we sit down and plan this properly, we can stay ahead of these expenses instead of scrambling every time a fee is due. We can track where every rupee goes, plan for what's coming, and handle it as a team.</p>
+    <p><strong>Shaina's school starts in 5 days. Her fees are due. I can't do this part alone.</strong></p>
+  </div>
+
+  <div class="conversation" style="background: #fefce8; border: 1px solid #fde68a; margin-top: 24px;">
+    <p style="font-style: italic; color: #92400e;">I want to be honest about something. Every time I have to ask you for money, it breaks something inside me. I feel like I should be the one providing, not the one asking. There are moments when I just want to sit alone and cry because I know this isn't what either of us imagined.</p>
+    <p style="font-style: italic; color: #92400e;">But I have no other option right now. Shaina needs to go to school. The bills don't stop. And pretending I can handle it alone when I can't would only make things worse for all of us.</p>
+    <p style="font-style: italic; color: #92400e;">I'm not proud of where we are. But I'd rather be honest with you and ask for help than let our daughter's education suffer because of my ego. You are my partner, and I need you in this.</p>
+  </div>
+</div>
+
+<!-- SECTION 6: 3-MONTH PLAN -->
+<div class="section">
+  <div class="section-label">Part 6</div>
+  <h2>What I'm working toward</h2>
+
+  <table>
+    <tr><th>What</th><th>How</th><th>What it means for us</th></tr>
+    <tr>
+      <td><strong>Better job</strong></td>
+      <td>
+        Applying for roles in the 24-30 LPA range<br>
+        Preparing for interviews<br>
+        Tailoring resume for each role
+      </td>
+      <td>Take-home could go from Rs. 79K to Rs. 1.5L/month. That alone changes everything.</td>
+    </tr>
+    <tr>
+      <td><strong>Freelance income</strong></td>
+      <td>
+        2 paid projects being delivered now<br>
+        Building more client work<br>
+        Using AI skills to offer consulting
+      </td>
+      <td>Extra Rs. 10-50K/month on top of salary. Already earning small amounts from this.</td>
+    </tr>
+    <tr>
+      <td><strong>Cutting costs</strong></td>
+      <td>
+        Already cancelled 2 subscriptions<br>
+        Reviewing what else can go
+      </td>
+      <td>Rs. 2,650/month saved so far. Looking for more.</td>
+    </tr>
+  </table>
+
+  <div class="highlight green">
+    <strong>I'm not asking you to carry us.</strong> I'm asking you to partner with me the way we used to, while I work on making things better. The job search and freelancing are both in motion. As either one improves, the pressure on both of us goes down.
+  </div>
+</div>
+
+</div>
+
+<div class="section" style="margin-bottom: 0;">
+  <div class="conversation" style="background: #fefce8; border: 1px solid #fde68a;">
+    <p style="color: #92400e;">Sana, please keep this between us. I don't want anyone else to know what we're going through. I'm not proud of being in this position, and the last thing I want is for people to think we're struggling or that I can't provide for my family.</p>
+    <p style="color: #92400e;">I'm sharing this with you because you're the only person I trust with this. I'm not running to anyone else. I'm coming to you. Because this is our life, our kids, and our future.</p>
+    <p style="color: #92400e;">I know I'm falling short right now. I feel it every single day. But I don't want to fall short alone. I want us to build this together. I'm trusting you with everything here, every number, every struggle. All I'm asking is for your hand in this, the way it used to be.</p>
+    <p style="color: #92400e; font-weight: 600;">Let's not let this moment break us. Let's let it bring us closer.</p>
+  </div>
+</div>
+
+<div style="max-width: 800px; margin: 0 auto; padding: 0 24px 24px;">
+  <div style="background: linear-gradient(135deg, #1a1a2e, #0f3460); border-radius: 16px; padding: 32px; text-align: center;">
+    <p style="font-size: 18px; font-style: italic; color: rgba(255,255,255,0.9); line-height: 1.8; margin-bottom: 16px;">"Measuring where we are tells us what we need to do and plan."</p>
+    <p style="font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7;">This is not about blame. This is about seeing the picture clearly so we can improve together. We need to grow in our life collaboratively, without putting each other down. There are people out there managing with far less than what we have. We are not in a bad place. We just need to work as a team, plan properly, and we'll be in a much better place than we are today.</p>
+  </div>
+</div>
+
+<div class="footer">
+  With love and trust. April 1, 2026.
+</div>
+
+</body>
+</html>
